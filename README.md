@@ -2,5 +2,7 @@
 Application permettant de manipuler des graphes  
 
 
-
 Membres de l'équipe: SOUMAH Ali, AKE Michael-Ange, LEMARQUIS Bryan, BENKACI Fayçal, MOHAMMAD Shayann
+
+
+Groupe : 113
