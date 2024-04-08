@@ -24,13 +24,11 @@ public class GrapheLArcs extends Graphe{
 	public void ajouterArc(String source, String destination, Integer valeur) {
 		if(valeur < 0)
 			throw new IllegalArgumentException("L'arc "+source+"-"+destination+" admet une valuation négative: "+valeur);
-		boolean contientArc = false;
 		for(Arc arc : arcs)
 				if (arc.getSource().equals(source) &&
 					arc.getDestination().equals(destination)) {
-					contientArc = true;
 				}
-		if(contientArc) {
+		if(this.contientArc(source, destination)) {
 			throw new IllegalArgumentException("L'arc "+source+"-"+destination+" est déjà présent");
 		}
 		Arc arc = new Arc(source, destination, valeur);
@@ -44,14 +42,12 @@ public class GrapheLArcs extends Graphe{
 
 	@Override
 	public void oterArc(String source, String destination) {
-		boolean contientArc = false;
 		for(int i = 0; i < arcs.size(); ++i) {
 			if(arcs.get(i).getSource().equals(source) && arcs.get(i).getDestination().equals(destination)) {
-				contientArc = true;
 				arcs.remove(i);
 			}
 		}
-		if(!contientArc)
+		if(!this.contientArc(source, destination))
 			throw new IllegalArgumentException("L'arc "+source+"-"+destination+ " n'est pas présent");
 	}
 
