@@ -13,10 +13,15 @@ public class GrapheLArcs extends Graphe{
 		sommets = new ArrayList<String>();
 		arcs = new ArrayList<Arc>();
 	}
+	
+	public GrapheLArcs(String str) {
+		this();
+		peupler(str);
+	}
 
 	@Override
 	public void ajouterSommet(String noeud) {
-		if(!sommets.contains(noeud))
+		if(!contientSommet(noeud) && noeud != "")
 			sommets.add(noeud);
 	}
 
@@ -24,31 +29,35 @@ public class GrapheLArcs extends Graphe{
 	public void ajouterArc(String source, String destination, Integer valeur) {
 		if(valeur < 0)
 			throw new IllegalArgumentException("L'arc "+source+"-"+destination+" admet une valuation négative: "+valeur);
-		for(Arc arc : arcs)
-				if (arc.getSource().equals(source) &&
-					arc.getDestination().equals(destination)) {
-				}
-		if(this.contientArc(source, destination)) {
+		if(this.contientArc(source, destination))
 			throw new IllegalArgumentException("L'arc "+source+"-"+destination+" est déjà présent");
-		}
 		Arc arc = new Arc(source, destination, valeur);
 		arcs.add(arc);
+		if (!this.contientSommet(source))
+			ajouterSommet(source);
+		if (!this.contientSommet(destination))
+			ajouterSommet(destination);
 	}
 
 	@Override
 	public void oterSommet(String noeud) {
 		sommets.remove(noeud);
+		for(int i = 0; i < arcs.size(); ++i) {
+			if(arcs.get(i).getSource().equals(noeud) || arcs.get(i).getDestination().equals(noeud))
+				arcs.remove(i);
+		}
 	}
 
 	@Override
 	public void oterArc(String source, String destination) {
+		if(!this.contientArc(source, destination))
+			throw new IllegalArgumentException("L'arc "+source+"-"+destination+ " n'est pas présent");
 		for(int i = 0; i < arcs.size(); ++i) {
 			if(arcs.get(i).getSource().equals(source) && arcs.get(i).getDestination().equals(destination)) {
 				arcs.remove(i);
+				break;
 			}
 		}
-		if(!this.contientArc(source, destination))
-			throw new IllegalArgumentException("L'arc "+source+"-"+destination+ " n'est pas présent");
 	}
 
 	@Override
@@ -67,27 +76,23 @@ public class GrapheLArcs extends Graphe{
 
 	@Override
 	public int getValuation(String src, String dest) {
-		for(int i = 0; i < arcs.size(); ++i) {
-			if(arcs.get(i).getSource().equals(src) && arcs.get(i).getDestination().equals(dest))
-				return arcs.get(i).getValuation();
-		}
+		if(contientArc(src, dest))
+			for(int i = 0; i < arcs.size(); ++i)
+				if(arcs.get(i).getSource().equals(src) && arcs.get(i).getDestination().equals(dest))
+					return arcs.get(i).getValuation();
 		return -1;
 	}
 
 	@Override
 	public boolean contientSommet(String sommet) {
-		for(String so : sommets)
-			if(so.equals(sommet))
-				return true;
-		return false;
+		return sommets.contains(sommet);
 	}
 
 	@Override
 	public boolean contientArc(String src, String dest) {
-		for(Arc arc : arcs)
-			if (arc.getSource().equals(src) && arc.getDestination().equals(dest))
-				return true;
+		if(contientSommet(src) && contientSommet(dest))
+			return getSucc(src).contains(dest);
 		return false;
-	}
+	}	
 
 }

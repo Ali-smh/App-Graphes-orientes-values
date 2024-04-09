@@ -1,4 +1,7 @@
-package graphe;
+package tests.graphe;
+
+import graphe.*;
+import arcs.*;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -87,7 +90,6 @@ class IGrapheTest {
 				() -> g.ajouterArc("A", "B", -1)); // valuation negative
 	}
 	
-	/*
 	void petiteImporation(IGraphe g) {
 		Arc a = GraphImporter.importer("graphes/orig/g-10-1.txt", g);
 		assertEquals("1-3(5), "
@@ -106,6 +108,7 @@ class IGrapheTest {
 			petiteImporation(g);	
 	}
 	
+	/*
 	@Test
 	void importer() throws NumberFormatException, FileNotFoundException {
 		String graphesRep = "graphes"; 
@@ -174,6 +177,7 @@ class IGrapheTest {
         } catch (IOException e) {
             System.out.println("Erreur lors de l'acces aux dossiers: " + e.getMessage());
         }
-    }*/ 
+    }
+    */
 
 }
