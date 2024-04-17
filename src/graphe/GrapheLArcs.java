@@ -6,11 +6,9 @@ import java.util.List;
 import arcs.Arc;
 
 public class GrapheLArcs extends Graphe{
-	private ArrayList<String> sommets;
 	private ArrayList<Arc> arcs;
 	
 	public GrapheLArcs() {
-		sommets = new ArrayList<String>();
 		arcs = new ArrayList<Arc>();
 	}
 	
@@ -21,8 +19,8 @@ public class GrapheLArcs extends Graphe{
 
 	@Override
 	public void ajouterSommet(String noeud) {
-		if(!contientSommet(noeud) && noeud != "")
-			sommets.add(noeud);
+		if(!contientSommet(noeud))
+			arcs.add(new Arc(noeud, "", 0));
 	}
 
 	@Override
@@ -33,15 +31,10 @@ public class GrapheLArcs extends Graphe{
 			throw new IllegalArgumentException("L'arc "+source+"-"+destination+" est déjà présent");
 		Arc arc = new Arc(source, destination, valeur);
 		arcs.add(arc);
-		if (!this.contientSommet(source))
-			ajouterSommet(source);
-		if (!this.contientSommet(destination))
-			ajouterSommet(destination);
 	}
 
 	@Override
 	public void oterSommet(String noeud) {
-		sommets.remove(noeud);
 		for(int i = 0; i < arcs.size(); ++i) {
 			if(arcs.get(i).getSource().equals(noeud) || arcs.get(i).getDestination().equals(noeud))
 				arcs.remove(i);
@@ -62,6 +55,12 @@ public class GrapheLArcs extends Graphe{
 
 	@Override
 	public List<String> getSommets() {
+		ArrayList<String> sommets = new ArrayList<String>();
+		for(Arc arc : arcs) {
+			if(!sommets.contains(arc.getSource()))
+				sommets.add(arc.getSource());
+		}	
+				
 		return sommets;
 	}
 
@@ -69,8 +68,9 @@ public class GrapheLArcs extends Graphe{
 	public List<String> getSucc(String sommet) {
 		ArrayList<String> successeurs = new ArrayList<String>();
 		for(Arc arc : arcs)
-			if (arc.getSource().equals(sommet))
-				successeurs.add(arc.getDestination().toString());
+			if(arc.getSource().equals(sommet)) 
+				if(!successeurs.contains(arc.getDestination()) && arc.getDestination() != "")
+						successeurs.add(arc.getDestination());
 		return successeurs;
 	}
 
@@ -85,7 +85,7 @@ public class GrapheLArcs extends Graphe{
 
 	@Override
 	public boolean contientSommet(String sommet) {
-		return sommets.contains(sommet);
+		return this.getSommets().contains(sommet);
 	}
 
 	@Override
