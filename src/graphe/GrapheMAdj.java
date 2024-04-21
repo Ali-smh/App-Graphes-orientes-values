@@ -1,7 +1,6 @@
 package graphe;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,19 +37,19 @@ public class GrapheMAdj extends Graphe {
 		if (valeur < 0)
 	    	throw new IllegalArgumentException("L'arc "+source+"-"+destination+" admet une valuation négative: "+valeur);
 		
-		if (!this.contientSommet(source)) {
+		if (!this.contientSommet(source))
 	        this.ajouterSommet(source);
-	    }
-	    if (!this.contientSommet(destination)) {
+	    
+	    if (!this.contientSommet(destination))
 	        this.ajouterSommet(destination);
-	    }
+	    
 		
 	    int indiceSource = indices.get(source);
 	    int indiceDestination = indices.get(destination);
 
-	    if (matrice[indiceSource][indiceDestination] > 0) {
+	    if (matrice[indiceSource][indiceDestination] > 0)
 	    	throw new IllegalArgumentException("L'arc "+source+"-"+destination+" est déjà présent");
-	    }
+	    
 	    
 
 	    matrice[indiceSource][indiceDestination] = valeur;
@@ -76,14 +75,14 @@ public class GrapheMAdj extends Graphe {
             int indiceSource = indices.get(source);
             int indiceDestination = indices.get(destination);
 
-            if (matrice[indiceSource][indiceDestination] == 0) {
+            if (matrice[indiceSource][indiceDestination] == 0)
             	throw new IllegalArgumentException("L'arc "+source+"-"+destination+ " n'est pas présent");
-            }
+            
 
             matrice[indiceSource][indiceDestination] = 0;
-        } else {
+        } else
         	throw new IllegalArgumentException("L'arc "+source+"-"+destination+ " n'est pas présent");
-        }
+        
     }
 
     @Override
