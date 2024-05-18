@@ -70,8 +70,12 @@ public class GrapheLAdj extends Graphe {
 		if(this.contientArc(source, destination))
 			throw new IllegalArgumentException("L'arc "+source+"-"+destination+" est déjà présent");
 		
-		this.ajouterSommet(source);
-		this.ajouterSommet(destination);
+		if (!this.contientSommet(source)) {
+	        this.ajouterSommet(source);
+	    }
+	    if (!this.contientSommet(destination)) {
+	        this.ajouterSommet(destination);
+	    }
 		lAdj.get(source).add(new Arc(source, destination, valeur));
 		
 	}

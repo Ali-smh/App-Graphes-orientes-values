@@ -1,98 +1,117 @@
 package graphe;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import arcs.Arc;
 
-public class GrapheLArcs extends Graphe{
-	private ArrayList<Arc> arcs;
-	
-	public GrapheLArcs() {
-		arcs = new ArrayList<Arc>();
-	}
-	
-	public GrapheLArcs(String str) {
-		this();
-		peupler(str);
-	}
+public class GrapheLArcs extends Graphe {
+    private List<Arc> arcs;
+    private Set<String> sommets;
 
-	@Override
-	public void ajouterSommet(String noeud) {
-		if(!contientSommet(noeud))
-			arcs.add(new Arc(noeud, "", 0));
-	}
+    public GrapheLArcs() {
+        arcs = new ArrayList<>();
+        sommets = new HashSet<>();
+    }
 
-	@Override
-	public void ajouterArc(String source, String destination, Integer valeur) {
-		if(valeur < 0)
-			throw new IllegalArgumentException("L'arc "+source+"-"+destination+" admet une valuation négative: "+valeur);
-		if(this.contientArc(source, destination))
-			throw new IllegalArgumentException("L'arc "+source+"-"+destination+" est déjà présent");
-		Arc arc = new Arc(source, destination, valeur);
-		arcs.add(arc);
-	}
+    public GrapheLArcs(String str) {
+        this();
+        peupler(str);
+    }
 
-	@Override
-	public void oterSommet(String noeud) {
-		for(int i = 0; i < arcs.size(); ++i) {
-			if(arcs.get(i).getSource().equals(noeud) || arcs.get(i).getDestination().equals(noeud))
-				arcs.remove(i);
-		}
-	}
+    @Override
+    public void ajouterSommet(String noeud) {
+        if (!contientSommet(noeud)) {
+            sommets.add(noeud);
+        }
+    }
 
-	@Override
-	public void oterArc(String source, String destination) {
-		if(!this.contientArc(source, destination))
-			throw new IllegalArgumentException("L'arc "+source+"-"+destination+ " n'est pas présent");
-		for(int i = 0; i < arcs.size(); ++i) {
-			if(arcs.get(i).getSource().equals(source) && arcs.get(i).getDestination().equals(destination)) {
-				arcs.remove(i);
-				break;
-			}
-		}
-	}
+    @Override
+    public void ajouterArc(String source, String destination, Integer valeur) {
+        if (valeur < 0) {
+            throw new IllegalArgumentException("L'arc " + source + "-" + destination + " admet une valuation négative: " + valeur);
+        }
+        if (this.contientArc(source, destination)) {
+            throw new IllegalArgumentException("L'arc " + source + "-" + destination + " est déjà présent");
+        }
+        Arc arc = new Arc(source, destination, valeur);
+        arcs.add(arc);
+        sommets.add(source);
+        sommets.add(destination);
+    }
 
-	@Override
-	public List<String> getSommets() {
-		ArrayList<String> sommets = new ArrayList<String>();
-		for(Arc arc : arcs) {
-			if(!sommets.contains(arc.getSource()))
-				sommets.add(arc.getSource());
-		}	
-				
-		return sommets;
-	}
+    @Override
+    public void oterSommet(String noeud) {
+        if (this.contientSommet(noeud)) {
+            Iterator<Arc> it = arcs.iterator();
+            while (it.hasNext()) {
+                Arc arc = it.next();
+                if (arc.getSource().equals(noeud) || arc.getDestination().equals(noeud)) {
+                    it.remove();
+                }
+            }
+            sommets.remove(noeud);
+        }
+    }
 
-	@Override
-	public List<String> getSucc(String sommet) {
-		ArrayList<String> successeurs = new ArrayList<String>();
-		for(Arc arc : arcs)
-			if(arc.getSource().equals(sommet)) 
-				if(!successeurs.contains(arc.getDestination()) && arc.getDestination() != "")
-						successeurs.add(arc.getDestination());
-		return successeurs;
-	}
+    @Override
+    public void oterArc(String source, String destination) {
+        if (!this.contientArc(source, destination)) {
+            throw new IllegalArgumentException("L'arc " + source + "-" + destination + " n'est pas présent");
+        }
+        Iterator<Arc> it = arcs.iterator();
+        while (it.hasNext()) {
+            Arc arc = it.next();
+            if (arc.getSource().equals(source) && arc.getDestination().equals(destination)) {
+                it.remove();
+                break;
+            }
+        }
+    }
 
-	@Override
-	public int getValuation(String src, String dest) {
-		if(contientArc(src, dest))
-			for(int i = 0; i < arcs.size(); ++i)
-				if(arcs.get(i).getSource().equals(src) && arcs.get(i).getDestination().equals(dest))
-					return arcs.get(i).getValuation();
-		return -1;
-	}
+    @Override
+    public List<String> getSommets() {
+        return new ArrayList<>(sommets);
+    }
 
-	@Override
-	public boolean contientSommet(String sommet) {
-		return this.getSommets().contains(sommet);
-	}
+    @Override
+    public List<String> getSucc(String sommet) {
+        List<String> successeurs = new ArrayList<>();
+        if (this.contientSommet(sommet)) {
+            for (Arc arc : arcs) {
+                if (arc.getSource().equals(sommet) && !arc.getDestination().isEmpty()) {
+                    successeurs.add(arc.getDestination());
+                }
+            }
+        }
+        return successeurs;
+    }
 
-	@Override
-	public boolean contientArc(String src, String dest) {
-		if(contientSommet(src) && contientSommet(dest))
-			return getSucc(src).contains(dest);
-		return false;
-	}	
+    @Override
+    public int getValuation(String src, String dest) {
+        for (Arc arc : arcs) {
+            if (arc.getSource().equals(src) && arc.getDestination().equals(dest)) {
+                return arc.getValuation();
+            }
+        }
+        return -1;
+    }
 
+    @Override
+    public boolean contientSommet(String sommet) {
+        return sommets.contains(sommet);
+    }
+
+    @Override
+    public boolean contientArc(String src, String dest) {
+        for (Arc arc : arcs) {
+            if (arc.getSource().equals(src) && arc.getDestination().equals(dest)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
