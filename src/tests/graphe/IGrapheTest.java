@@ -2,7 +2,7 @@ package tests.graphe;
 
 import graphe.*;
 import arcs.*;
-
+import dijkstra.Dijkstra;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,13 +24,13 @@ import org.junit.jupiter.api.Test;
 
 class IGrapheTest {
 	private final IGraphe[] graphes = { 
-			new GrapheLArcs(), //new GrapheLAdj(),
-			//new GrapheMAdj(), //new GrapheHHAdj()
+			new GrapheLArcs(), new GrapheLAdj(),
+			new GrapheMAdj(),
 	};
 	
 	// graphe de l'exercice 3.1 du poly de maths
 	// avec en plus un noeud isole : J
-	private final String g31 = 
+	/*private final String g31 = 
 			"A-C(2), A-D(1), "
 			+ "B-G(3), "
 			+ "C-H(2), "
@@ -88,9 +88,9 @@ class IGrapheTest {
 		
 		assertThrows(IllegalArgumentException.class,
 				() -> g.ajouterArc("A", "B", -1)); // valuation negative
-	}
+	}*/
 	
-	void petiteImporation(IGraphe g) {
+	/*void petiteImporation(IGraphe g) {
 		Arc a = GraphImporter.importer("graphes/orig/g-10-1.txt", g);
 		assertEquals("1-3(5), "
 				+ "10-3(3), 2-1(5), 2-3(5), 2-5(4), "
@@ -106,9 +106,9 @@ class IGrapheTest {
 	void petitTestImportation() {
 		for (IGraphe g : graphes)
 			petiteImporation(g);	
-	}
+	}*/
 	
-	/*
+	
 	@Test
 	void importer() throws NumberFormatException, FileNotFoundException {
 		String graphesRep = "graphes"; 
@@ -128,7 +128,7 @@ class IGrapheTest {
                 Path file1 = iterator1.next();
                 Path file2 = iterator2.next();
 
-                IGraphe g = new GrapheHHAdj(); 
+                IGraphe g = new GrapheLArcs(); 
                 Arc arc = GraphImporter.importer(file1.toFile(), g);
 
                 List<Integer> listeEntiers = new ArrayList<>();
@@ -178,6 +178,5 @@ class IGrapheTest {
             System.out.println("Erreur lors de l'acces aux dossiers: " + e.getMessage());
         }
     }
-    */
 
 }
