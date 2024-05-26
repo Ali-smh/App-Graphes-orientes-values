@@ -10,9 +10,9 @@
 - MOHAMMAD Shayann
 
 **Graphes codés:**
-GrapheMAdj
-GrapheLAdj
-GrapheLArcs
+- GrapheMAdj
+- GrapheLAdj
+- GrapheLArcs
 
 **Graphes codés**
 - GrapheMAdj
