@@ -24,7 +24,7 @@
   - Passe tous les graphes de Dorogovtsev Mendes
   - Passe tous les graphes de Barabasi
   - Bloque sur Full 5001-1
-  - GrapheLArcs
+- GrapheLArcs
   - Bloque à partir de DorogovtsevMendes 100000-1
   - Bloque à partir deBarabasi 100002-1
   - Bloque à partir de Full 501-1
