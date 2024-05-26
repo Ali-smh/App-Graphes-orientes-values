@@ -9,15 +9,11 @@
 - BENKACI Fayçal, 
 - MOHAMMAD Shayann
 
-<<<<<<< HEAD
-Groupe : 112
-
-Graphes codés:
+**Graphes codés:**
 GrapheMAdj
 GrapheLAdj
 GrapheLArcs
-=======
-###
+
 **Graphes codés**
 - GrapheMAdj
 - GrapheLAdj
@@ -36,4 +32,3 @@ GrapheLArcs
   - Bloque à partir de DorogovtsevMendes 100000-1
   - Bloque à partir deBarabasi 100002-1
   - Bloque à partir de Full 501-1
->>>>>>> ab024eeb23e5a78e468b7ed8c97087907a91f55e
