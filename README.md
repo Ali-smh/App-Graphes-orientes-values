@@ -2,7 +2,7 @@
 ## Application permettant de manipuler des graphes  
 ### Groupe : 112
 
-Membres de l'équipe: 
+**Membres de l'équipe:**
 - SOUMAH Ali, 
 - AKE Michael-Ange, 
 - LEMARQUIS Bryan, 
@@ -10,7 +10,8 @@ Membres de l'équipe:
 - MOHAMMAD Shayann
 
 ###
-Graphes codés
+**Graphes codés**
 - GrapheMAdj
 - GrapheLAdj
 - GrapheLArcs
+
