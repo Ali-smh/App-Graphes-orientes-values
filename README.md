@@ -9,11 +9,6 @@
 - BENKACI Fayçal
 - MOHAMMAD Shayann
 
-**Graphes codés:**
-- GrapheMAdj
-- GrapheLAdj
-- GrapheLArcs
-
 **Graphes codés**
 - GrapheMAdj
 - GrapheLAdj
