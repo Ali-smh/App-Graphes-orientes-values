@@ -1,20 +1,15 @@
 package graphe;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-
 import arcs.Arc;
 
 public class GrapheLArcs extends Graphe {
     private List<Arc> arcs;
-    private Set<String> sommets;
 
     public GrapheLArcs() {
         arcs = new ArrayList<>();
-        sommets = new HashSet<>();
     }
 
     public GrapheLArcs(String str) {
@@ -25,9 +20,10 @@ public class GrapheLArcs extends Graphe {
     @Override
     public void ajouterSommet(String noeud) {
         if (!contientSommet(noeud)) {
-            sommets.add(noeud);
+        	arcs.add(new Arc(noeud, "", 0));
         }
     }
+
 
     @Override
     public void ajouterArc(String source, String destination, Integer valeur) {
@@ -37,31 +33,22 @@ public class GrapheLArcs extends Graphe {
         if (this.contientArc(source, destination)) {
             throw new IllegalArgumentException("L'arc " + source + "-" + destination + " est déjà présent");
         }
-        Arc arc = new Arc(source, destination, valeur);
-        arcs.add(arc);
-        sommets.add(source);
-        sommets.add(destination);
+        arcs.add(new Arc(source, destination, valeur));
     }
 
     @Override
     public void oterSommet(String noeud) {
-        if (this.contientSommet(noeud)) {
-            Iterator<Arc> it = arcs.iterator();
-            while (it.hasNext()) {
-                Arc arc = it.next();
-                if (arc.getSource().equals(noeud) || arc.getDestination().equals(noeud)) {
-                    it.remove();
-                }
+        Iterator<Arc> it = arcs.iterator();
+        while (it.hasNext()) {
+            Arc arc = it.next();
+            if (arc.getSource().equals(noeud) || arc.getDestination().equals(noeud)) {
+                it.remove();
             }
-            sommets.remove(noeud);
         }
     }
 
     @Override
     public void oterArc(String source, String destination) {
-        if (!this.contientArc(source, destination)) {
-            throw new IllegalArgumentException("L'arc " + source + "-" + destination + " n'est pas présent");
-        }
         Iterator<Arc> it = arcs.iterator();
         while (it.hasNext()) {
             Arc arc = it.next();
@@ -74,17 +61,24 @@ public class GrapheLArcs extends Graphe {
 
     @Override
     public List<String> getSommets() {
-        return new ArrayList<>(sommets);
+        List<String> sommets = new ArrayList<>();
+        for (Arc arc : arcs) {
+            if (!sommets.contains(arc.getSource())) {
+                sommets.add(arc.getSource());
+            }
+            if (!sommets.contains(arc.getDestination())) {
+                sommets.add(arc.getDestination());
+            }
+        }
+        return sommets;
     }
 
     @Override
     public List<String> getSucc(String sommet) {
         List<String> successeurs = new ArrayList<>();
-        if (this.contientSommet(sommet)) {
-            for (Arc arc : arcs) {
-                if (arc.getSource().equals(sommet) && !arc.getDestination().isEmpty()) {
-                    successeurs.add(arc.getDestination());
-                }
+        for (Arc arc : arcs) {
+            if (arc.getSource().equals(sommet) && !successeurs.contains(arc.getDestination())) {
+                successeurs.add(arc.getDestination());
             }
         }
         return successeurs;
@@ -102,7 +96,12 @@ public class GrapheLArcs extends Graphe {
 
     @Override
     public boolean contientSommet(String sommet) {
-        return sommets.contains(sommet);
+        for (Arc arc : arcs) {
+            if (arc.getSource().equals(sommet) || arc.getDestination().equals(sommet)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -115,3 +114,5 @@ public class GrapheLArcs extends Graphe {
         return false;
     }
 }
+
+
