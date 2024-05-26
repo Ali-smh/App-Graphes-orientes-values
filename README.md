@@ -3,10 +3,10 @@
 ### Groupe : 112
 
 **Membres de l'équipe:**
-- SOUMAH Ali, 
-- AKE Michael-Ange, 
-- LEMARQUIS Bryan, 
-- BENKACI Fayçal, 
+- SOUMAH Ali 
+- AKE Michael-Ange
+- LEMARQUIS Bryan
+- BENKACI Fayçal
 - MOHAMMAD Shayann
 
 **Graphes codés:**
