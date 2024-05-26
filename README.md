@@ -1,5 +1,6 @@
 # SAE-2.02-Graphes-orientés-valués
-Application permettant de manipuler des graphes  
+## Application permettant de manipuler des graphes  
+### Groupe : 112
 
 Membres de l'équipe: 
 - SOUMAH Ali, 
@@ -8,7 +9,6 @@ Membres de l'équipe:
 - BENKACI Fayçal, 
 - MOHAMMAD Shayann
 
-Groupe : 112
 
 Graphes codés
 - GrapheMAdj
