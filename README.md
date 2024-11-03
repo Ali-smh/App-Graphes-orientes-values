@@ -1,8 +1,6 @@
 # SAE-2.02-Graphes-orientés-valués
 ## Application permettant de manipuler des graphes  
 ### Groupe : 112
-# Valued directed graphs application
-Application for manipulating graphs
 
 **Membres de l'équipe:**
 - SOUMAH Ali 
