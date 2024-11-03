@@ -10,12 +10,8 @@ Application for manipulating graphs
 - LEMARQUIS Bryan
 - BENKACI Fayçal
 - MOHAMMAD Shayann
-![alt text](https://www.researchgate.net/profile/Dariusz-Krol/publication/276889884/figure/fig1/AS:935226649886723@1599986817297/The-development-of-a-network-diffusion-model-within-the-Barabasi-Albert-preferential.png)
 
 **Graphes codés**
-- GrapheMAdj
-- GrapheLAdj
-- GrapheLArcs
 **Tests**
 - GrapheMAdj
   - Bloque à partir de DorogovtsevMendes 10000-1
